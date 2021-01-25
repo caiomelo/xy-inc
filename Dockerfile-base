@@ -1,0 +1,5 @@
+FROM adoptopenjdk/openjdk11:ubi
+
+VOLUME /tmp
+COPY base/build/libs/*.jar base.jar
+ENTRYPOINT ["java","-jar","/base.jar"]

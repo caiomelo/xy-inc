@@ -1,6 +1,18 @@
+version: "3.9"
+
 services:
   mongodb:
     image: mongo
     restart: always
     ports:
       - 27017:27017
+  base:
+    build:
+      context: .
+      dockerfile: Dockerfile-base
+    environment:
+      MONGO_HOST: mongodb
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
