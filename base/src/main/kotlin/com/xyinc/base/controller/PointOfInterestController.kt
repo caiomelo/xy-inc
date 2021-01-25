@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/poi")
-class PointOfInterestController(val repository: PointOfInterestRepository) {
+class PointOfInterestController(private val repository: PointOfInterestRepository) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
