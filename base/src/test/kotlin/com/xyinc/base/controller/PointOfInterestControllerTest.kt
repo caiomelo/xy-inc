@@ -17,10 +17,16 @@ internal class PointOfInterestControllerTest(@Autowired val testTemplate: TestRe
     @Test
     fun `It should be able to create a point of interest`() {
         val dto = CreatePOIRequest("home", 1000.0F, 1000.0F)
+
         val response = testTemplate.postForEntity<PointOfInterest>("/poi", dto)
+
         assertThat(response.statusCode).isEqualTo(HttpStatus.CREATED)
-        assertThat(response.body?.name).isEqualTo(dto.name)
-        assertThat(response.body?.latitude).isEqualTo(dto.latitude)
-        assertThat(response.body?.longitude).isEqualTo(dto.longitude)
+        assertThat(response.body).isNotNull
+
+        response.body?.apply {
+            assertThat(this.name).isEqualTo(dto.name)
+            assertThat(this.latitude).isEqualTo(dto.latitude)
+            assertThat(this.longitude).isEqualTo(dto.longitude)
+        }
     }
 }
