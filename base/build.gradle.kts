@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.5.0-M1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.asciidoctor.convert") version "1.5.8"
     id("jacoco")
 
     kotlin("jvm") version "1.4.21-2"
@@ -19,8 +18,6 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-val snippetsDir by extra { file("build/generated-snippets") }
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -30,7 +27,6 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 tasks.withType<KotlinCompile> {
@@ -45,17 +41,7 @@ tasks.withType<Test> {
 }
 
 tasks.test {
-    outputs.dir(snippetsDir)
     finalizedBy(tasks.jacocoTestReport)
-
-    configure<JacocoTaskExtension> {
-        excludes = listOf("**/Application.kt")
-    }
-}
-
-tasks.asciidoctor {
-    inputs.dir(snippetsDir)
-    dependsOn(tasks.test)
 }
 
 tasks.jacocoTestReport {
