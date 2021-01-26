@@ -16,3 +16,13 @@ services:
       - 8080:8080
     depends_on:
       - mongodb
+  list:
+    build:
+      context: .
+      dockerfile: Dockerfile-list
+    environment:
+      MONGO_HOST: mongodb
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongodb
