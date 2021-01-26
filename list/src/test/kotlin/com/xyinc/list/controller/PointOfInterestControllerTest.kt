@@ -22,17 +22,17 @@ internal class PointOfInterestControllerTest(
 ) {
 
     private val pointsOfInterest: List<PointOfInterest> = listOf(
-        PointOfInterest("place1", -18.90816723990092f, -48.261324002765186f),
-        PointOfInterest("place2", -23.59705086490992f, -46.68661896035228f)
+        PointOfInterest("place1", 1, 1),
+        PointOfInterest("place2", 2, 2)
     )
 
     @BeforeEach
     fun init() {
         val documents = listOf(
-            Document().append(NAME_FIELD, pointsOfInterest[0].name).append(LATITUDE_FIELD, pointsOfInterest[0].latitude)
-                .append(LONGITUDE_FIELD, pointsOfInterest[0].longitude),
-            Document().append(NAME_FIELD, pointsOfInterest[1].name).append(LATITUDE_FIELD, pointsOfInterest[1].latitude)
-                .append(LONGITUDE_FIELD, pointsOfInterest[1].longitude)
+            Document().append(NAME_FIELD, pointsOfInterest[0].name).append(LATITUDE_FIELD, pointsOfInterest[0].coordinateX)
+                .append(LONGITUDE_FIELD, pointsOfInterest[0].coordinateY),
+            Document().append(NAME_FIELD, pointsOfInterest[1].name).append(LATITUDE_FIELD, pointsOfInterest[1].coordinateX)
+                .append(LONGITUDE_FIELD, pointsOfInterest[1].coordinateY)
         )
 
         mongoTemplate.getCollection(COLLECTION_NAME).insertMany(documents)
