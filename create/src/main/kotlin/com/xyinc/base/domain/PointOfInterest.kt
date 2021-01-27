@@ -9,6 +9,5 @@ data class PointOfInterest(
     @Id
     val id: ObjectId = ObjectId.get(),
     val name: String,
-    val coordinateX: Int,
-    val coordinateY: Int
+    val position: List<Int>
 )

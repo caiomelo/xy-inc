@@ -21,20 +21,12 @@ internal class PointOfInterestControllerTest(
     private val mongoTemplate: MongoTemplate
 ) {
 
-    private val pointsOfInterest: List<PointOfInterest> = listOf(
-        PointOfInterest("place1", 1, 1),
-        PointOfInterest("place2", 2, 2)
-    )
-
     @BeforeEach
     fun init() {
         val documents = listOf(
-            Document().append(NAME_FIELD, pointsOfInterest[0].name).append(LATITUDE_FIELD, pointsOfInterest[0].coordinateX)
-                .append(LONGITUDE_FIELD, pointsOfInterest[0].coordinateY),
-            Document().append(NAME_FIELD, pointsOfInterest[1].name).append(LATITUDE_FIELD, pointsOfInterest[1].coordinateX)
-                .append(LONGITUDE_FIELD, pointsOfInterest[1].coordinateY)
+            Document().append(NAME_FIELD, "cafe").append(POSITION_FIELD, listOf(20, 10)),
+            Document().append(NAME_FIELD, "pub").append(POSITION_FIELD, listOf(10, 20))
         )
-
         mongoTemplate.getCollection(COLLECTION_NAME).insertMany(documents)
     }
 
@@ -43,7 +35,7 @@ internal class PointOfInterestControllerTest(
         val response = testTemplate.getForEntity<Array<PointOfInterest>>("/poi")
 
         assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(response.body).containsAll(pointsOfInterest)
+        assertThat(response.body?.map { it.name }?.toList()).containsExactly("cafe", "pub")
     }
 
     @AfterEach
@@ -52,7 +44,6 @@ internal class PointOfInterestControllerTest(
     companion object {
         const val COLLECTION_NAME = "pointOfInterest"
         const val NAME_FIELD = "name"
-        const val LATITUDE_FIELD = "latitude"
-        const val LONGITUDE_FIELD = "longitude"
+        const val POSITION_FIELD = "position"
     }
 }

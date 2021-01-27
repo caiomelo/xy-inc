@@ -25,8 +25,8 @@ internal class PointOfInterestControllerTest(@Autowired val testTemplate: TestRe
 
         response.body?.apply {
             assertThat(this.name).isEqualTo(dto.name)
-            assertThat(this.coordinateX).isEqualTo(dto.coordinateX)
-            assertThat(this.coordinateY).isEqualTo(dto.coordinateY)
+            assertThat(this.position[0]).isEqualTo(dto.x)
+            assertThat(this.position[1]).isEqualTo(dto.y)
         }
     }
 }

@@ -13,5 +13,5 @@ class PointOfInterestController(private val service: PointOfInterestService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody poi: CreatePOIRequest): PointOfInterest =
-        service.create(PointOfInterest(name = poi.name, coordinateX = poi.coordinateX, coordinateY = poi.coordinateY))
+        service.create(PointOfInterest(name = poi.name, position = listOf(poi.x, poi.y)))
 }

@@ -7,7 +7,7 @@ data class CreatePOIRequest(
     @NotEmpty
     val name: String,
     @NotNull
-    val coordinateX: Int,
+    val x: Int,
     @NotNull
-    val coordinateY: Int
+    val y: Int
 )
