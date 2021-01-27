@@ -1,4 +1,4 @@
-package com.xyinc.list.domain
+package com.xyinc.search.domain
 
 import org.springframework.data.mongodb.core.mapping.Document
 
