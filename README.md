@@ -1,12 +1,12 @@
 # xy-inc project
 
-##Table of contents
+## Table of contents
 * [General info](#general-info)
 * [Building](#building)
 * [Running](#running)
 * [Testing](#testing)
 
-##General info
+## General info
 This project consists of three services, each of them
 with a specific purpose:
 - [create](https://github.com/caiomelo/xy-inc/tree/master/create)
@@ -16,14 +16,14 @@ with a specific purpose:
 - [search](https://github.com/caiomelo/xy-inc/tree/master/search)
   -> searches points of interest near a given coordinate
 
-##Building 
+## Building 
 All three services need to go through the same building process
 in order to work correctly. To do so, access the root folder of each service and run:
 ```
 ./gradlew clean build
 ```
 
-##Running
+## Running
 
 To start a containerized version of a specific service, run:
 ```
@@ -35,7 +35,7 @@ To start all services at once, run:
 docker-compose run -d 
 ```
 
-##Testing
+## Testing
 
 ### Creating a point of interest
 Request:
@@ -56,7 +56,7 @@ Request:
 GET localhost:8081/poi
 ``` 
 
-###Searching for all points of interest within the given distance from the given coordinate
+### Searching for all points of interest within the given distance from the given coordinate
 Request:
 ```
 GET localhost:8082/poi?x=<value>&y=<value>&maxDistance=<value>
