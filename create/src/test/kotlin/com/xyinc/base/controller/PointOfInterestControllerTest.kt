@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
@@ -28,5 +32,14 @@ internal class PointOfInterestControllerTest(@Autowired val testTemplate: TestRe
             assertThat(this.position[0]).isEqualTo(dto.x)
             assertThat(this.position[1]).isEqualTo(dto.y)
         }
+    }
+
+    @Test
+    fun `It should respond with bad request if name of point of interest is missing`() {
+        val headers = HttpHeaders().apply { this.set("Content-Type", "application/json") }
+        val requestEntity = HttpEntity("{\"x\":20,\"y\":10}", headers)
+
+        val response = testTemplate.exchange<String>("/poi", HttpMethod.POST, requestEntity)
+        assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
     }
 }

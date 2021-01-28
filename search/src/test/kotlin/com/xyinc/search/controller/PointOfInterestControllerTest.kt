@@ -46,6 +46,24 @@ internal class PointOfInterestControllerTest(
         assertThat(response.body?.map { it.name }?.toList()).containsExactly("cafe", "jewelry", "pub", "supermarket")
     }
 
+    @Test
+    fun `It should respond with bad request if value of coordinate x is missing`() {
+        val response = testTemplate.getForEntity<String>("/poi?y=10&maxDistance=10")
+        assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
+    }
+
+    @Test
+    fun `It should respond with bad request if value of coordinate y is missing`() {
+        val response = testTemplate.getForEntity<String>("/poi?x=20&maxDistance=10")
+        assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
+    }
+
+    @Test
+    fun `It should respond with bad request if value of max distance is missing`() {
+        val response = testTemplate.getForEntity<String>("/poi?x=20&y=10")
+        assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
+    }
+
     @AfterEach
     fun tearDown() = mongoTemplate.getCollection(COLLECTION_NAME).drop()
 
